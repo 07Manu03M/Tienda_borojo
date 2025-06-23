@@ -62,6 +62,10 @@ Ahora que los datos están cargados, puedes ejecutar los scripts para cada tipo 
 - Contenido:
 
 
+* Evidencia
+
+![Comando de insersion](img/comandoinsersion.jpg)
+
 ```javascript
 // Insertar un nuevo producto
 db.productos.insertOne({
@@ -73,7 +77,12 @@ db.productos.insertOne({
   "tags": ["dulce", "energía"]
 });
 print("Producto 'Chocolatina de borojó' insertado.");
+```
+* Evidencia
 
+![Evidencia de insersion](img/evidencia1insersion.jpg)
+
+```js
 // Insertar un nuevo cliente
 db.clientes.insertOne({
   "_id": 11, 
@@ -86,8 +95,7 @@ print("Cliente 'Mario Mendoza' insertado.");
 ```
 
 * Evidencia
-![Comando de insersion](img/comando2insersion.jpg)
-![Primera Insersion Echa](img/evidencia1insersion.jpg)
+
 ![Segunda Insersion Echa](img/comando2insersion.jpg)
 
 
@@ -100,14 +108,18 @@ print("Cliente 'Mario Mendoza' insertado.");
 // Consultar todos los productos con stock mayor a 20
 print("--- Productos con stock mayor a 20 ---");
 db.productos.find({ "stock": { "$gt": 20 } }).forEach(printjson);
+```
+* Evidencia
 
+![Busqueda 1](img/busqueda1.jpg)
+
+```js
 // Encontrar los clientes que no han comprado aún ningún producto
 print("\n--- Clientes sin compras ---");
 db.clientes.find({ "compras": { "$size": 0 } }).forEach(printjson);
 ```
-
 * Evidencia
-![Busqueda 1](img/busqueda1.jpg)
+
 ![Busqueda 2](img/busqueda2.jpg)
 
 
@@ -123,7 +135,12 @@ db.productos.updateOne(
   { "$inc": { "stock": 10 } }
 );
 print("Stock de 'Borojó deshidratado' actualizado.");
+```
+* Evidencia
 
+![Actualizacion 1](img/actualizacion%201.jpg)
+
+```js
 // Añadir el tag "bajo azúcar" a todos los productos de la categoría "Bebida"
 db.productos.updateMany(
   { "categoria": "Bebida" },
@@ -133,7 +150,7 @@ print("Tag 'bajo azúcar' añadido a productos de categoría 'Bebida'.");
 ```
 
 * Evidencia
-![Actualizacion 1](img/actualizacion%201.jpg)
+
 ![Actualizacion 2](img/actualicacion%202.jpg)
 
 
@@ -146,7 +163,13 @@ print("Tag 'bajo azúcar' añadido a productos de categoría 'Bebida'.");
 // Eliminar el cliente con el correo "juan@email.com"
 db.clientes.deleteOne({ "email": "juan@email.com" });
 print("Cliente 'juan@email.com' eliminado.");
+```
 
+* Evidencia
+
+![Eliminacion 1](img/eliminacion%202.jpg)
+
+```js
 // Eliminar todos los productos con stock menor a 5
 db.productos.deleteMany({ "stock": { "$lt": 5 } });
 print("Productos con stock menor a 5 eliminados.");
@@ -154,7 +177,6 @@ print("Productos con stock menor a 5 eliminados.");
 
 * Evidencia
 
-![Eliminacion 1](img/eliminacion%202.jpg)
 ![Eliminacion 2](img/eliminacion%201.jpg)
 
 ## 5. Consultas con Expresiones Regulares
@@ -166,11 +188,21 @@ print("Productos con stock menor a 5 eliminados.");
 // Buscar productos cuyo nombre empiece por "Boro"
 print("--- Productos cuyo nombre empieza por 'Boro' ---");
 db.productos.find({ "nombre": /^Boro/ }).forEach(printjson);
+```
+* Evidencia
 
+![Empieza por "Boro"](img/regex1.jpg)
+
+```js
 // Encontrar productos cuyo nombre contenga la palabra "con"
 print("\n--- Productos cuyo nombre contiene 'con' ---");
 db.productos.find({ "nombre": /con/i }).forEach(printjson); // 'i' para insensible a mayúsculas/minúsculas
+```
+* Evidencia
 
+![Nombre que tenga "con"](img/regex2.jpg)ç
+
+```js
 // Encontrar clientes cuyo nombre tenga la letra "z" (insensible a mayúsculas/minúsculas)
 print("\n--- Clientes cuyo nombre contiene 'z' ---");
 db.clientes.find({ "nombre": /z/i }).forEach(printjson);
@@ -178,8 +210,6 @@ db.clientes.find({ "nombre": /z/i }).forEach(printjson);
 
 * Evidencia
 
-![Empieza por "Boro"](img/regex1.jpg)
-![Nombre que tenga "con"](img/regex2.jpg)
 ![Clientes con z](img/regex3.jpg)
 
 
@@ -192,11 +222,21 @@ db.clientes.find({ "nombre": /z/i }).forEach(printjson);
 // Buscar clientes que tengan "natural" en sus preferencias
 print("--- Clientes con 'natural' en sus preferencias ---");
 db.clientes.find({ "preferencias": "natural" }).forEach(printjson);
+```
+* Evidencia
 
+![Clientes con "natural"](img/array%201.jpg)
+
+```js
 // Encontrar productos que tengan al menos los tags "natural" y "orgánico"
 print("\n--- Productos con tags 'natural' y 'orgánico' ---");
 db.productos.find({ "tags": { "$all": ["natural", "orgánico"] } }).forEach(printjson);
+```
+* Evidencia
 
+![Productos con tag natural y organico](img/array%202.jpg)
+
+```js
 // Listar productos que tienen más de un tag
 print("\n--- Productos con más de un tag ---");
 db.productos.find({ "tags.1": { "$exists": true } }).forEach(printjson);
@@ -204,8 +244,6 @@ db.productos.find({ "tags.1": { "$exists": true } }).forEach(printjson);
 
 * Evidencia
 
-![Clientes con "natural"](img/array%201.jpg)
-![Productos con tag natural y organico](img/array%202.jpg)
 ![Tags con mas de uno](img/array%203.jpg)
 
 
@@ -244,7 +282,12 @@ db.ventas.aggregate([
   },
   { "$sort": { "totalVendido": -1 } }
 ]).forEach(printjson);
+```
+* Evidencia
 
+![Productos mas vendidos](img/agregation1.jpg)
+
+```js
 // Agrupar clientes por cantidad de compras realizadas
 print("\n--- Clientes agrupados por cantidad de compras ---");
 db.clientes.aggregate([
@@ -263,7 +306,12 @@ db.clientes.aggregate([
   },
   { "$sort": { "_id": 1 } }
 ]).forEach(printjson);
+```
+* Evidencia
 
+![Clientes por cantidad de compras](img/agregation2.jpg)
+
+```js
 // Mostrar el total de ventas por mes
 print("\n--- Total de ventas por mes ---");
 db.ventas.aggregate([
@@ -282,7 +330,13 @@ db.ventas.aggregate([
   },
   { "$sort": { "mes": 1 } }
 ]).forEach(printjson);
+```
 
+* Evidencia
+
+![Total ventas del mes](img/agregation3.jpg)
+
+```js
 // Calcular el promedio de precios por categoría de producto
 print("\n--- Promedio de precios por categoría ---");
 db.productos.aggregate([
@@ -294,7 +348,13 @@ db.productos.aggregate([
   },
   { "$sort": { "promedioPrecio": -1 } }
 ]).forEach(printjson);
+```
 
+* Evidencia
+
+![Promedio de precios categoria producto](img/agregation4.jpg)
+
+```js
 // Mostrar los 3 productos con mayor stock
 print("\n--- 3 Productos con mayor stock ---");
 db.productos.aggregate([
@@ -307,10 +367,6 @@ db.productos.aggregate([
 
 * Evidencia
 
-![Productos mas vendidos](img/agregation1.jpg)
-![Clientes por cantidad de compras](img/agregation2.jpg)
-![Total ventas del mes](img/agregation3.jpg)
-![Promedio de precios categoria producto](img/agregation4.jpg)
 ![3 productos con mayor stock](img/agregation5.jpg)
 
 
@@ -330,7 +386,12 @@ db.system.js.save({
   }
 });
 print("Función 'calcularDescuento' definida.");
+```
+* Evidencia
 
+![Calcular Descuento](img/system1.jpg)
+
+```js
 // Definir función clienteActivo(idCliente)
 db.system.js.save({
   _id: "clienteActivo",
@@ -343,7 +404,12 @@ db.system.js.save({
   }
 });
 print("Función 'clienteActivo' definida.");
+```
+* Evidencia
 
+![Cliente Activo](img/system2.jpg)
+
+```js
 // Definir función verificarStock(productoId, cantidadDeseada)
 db.system.js.save({
   _id: "verificarStock",
@@ -360,8 +426,6 @@ print("Función 'verificarStock' definida.");
 
 * Evidencia
 
-![Calcular Descuento](img/system1.jpg)
-![Cliente Activo](img/system2.jpg)
 ![Verificar Stock](img/system3.jpg)
 
 
